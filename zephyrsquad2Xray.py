@@ -41,22 +41,27 @@ def parseZephyrSquad2XrayData(inputfile, outputfile):
     # loop through the rows using iterrows()
     issueID = 0
     lastIssueKey = 0
+    lastExecutionId = 0
+    issueKeyList = []
     for index, xls_row in df.iterrows():
         issueKey = xls_row['Issue Key']
-        if lastIssueKey == 0 or lastIssueKey != issueKey:
-            issueID=issueID+1
-            appendRows(issueID=issueID, testSummary=xls_row['Test Summary'], testPriority=xls_row['Priority'],action=xls_row['Step'],result=xls_row['Expected Result'], data=xls_row['Test Data'])
-            lastIssueKey = issueKey
-        else:
-            appendRows(issueID=issueID, action=xls_row['Step'], result=xls_row['Expected Result'], data=xls_row['Test Data'])
-            lastIssueKey = issueKey
+        executionId = xls_row['ExecutionId']
         
-        #if issueKey is None or pd.isnull(issueKey):
-        #    appendRows(issueID=issueID, action=xls_row['TestStep'], result=xls_row['Test Result'], data=xls_row['Test Data'], description=xls_row['Description'])
-        #else:
-        #    issueID=issueID+1
-        #    appendRows(issueID=issueID, testSummary=xls_row['Summary'], testPriority=xls_row['Priority'],action=xls_row['TestStep'],result=xls_row['Test Result'], data=xls_row['Test Data'], description=xls_row['Description'])
-
+        if lastIssueKey == 0 or lastIssueKey != issueKey:
+            if issueKey not in issueKeyList:
+                issueID=issueID+1
+                appendRows(issueID=issueID, testSummary=xls_row['Test Summary'], testPriority=xls_row['Priority'],action=xls_row['Step'],result=xls_row['Expected Result'], data=xls_row['Test Data'])
+                lastIssueKey = issueKey
+                lastExecutionId = executionId
+                issueKeyList.append(issueKey)
+            else:
+                continue
+        else:
+            if lastExecutionId == executionId:
+                appendRows(issueID=issueID, action=xls_row['Step'], result=xls_row['Expected Result'], data=xls_row['Test Data'])
+                lastExecutionId = executionId
+            #lastIssueKey = issueKey
+        
     df = pd.DataFrame(row, columns=column)  
     df.set_index("Issue ID", inplace=True)
     df.to_csv(outputfile)
