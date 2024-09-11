@@ -1,0 +1,60 @@
+Issue ID,Issue Key,Test Type,Test Summary,Test Priority,Action,Data,Result,Issue Type,Labels,Component,Description,Links
+1,,Manual,CC Test 2 ZS,3,"First test step 
+{quote}
+    here is quotable
+ content to be quoted
+{quote}","First test data
+
+* some
+* bullet
+** indented
+** bullets
+* points","First Expected Result
+
+* a
+* bulleted
+*# with
+*# nested
+*# numbered
+* list",Test,,,,
+1,,Manual,,3,"Second test step
+
+[http://jira.atlassian.com]
+[Atlassian|http://atlassian.com]","Second test data
+
+{code:title=Bar.java|borderStyle=solid}
+// Some comments here
+public String getFoo()
+{
+    return foo;
+}
+{code}","Second Expected Result
+
+??citation??",Test,,,,
+2,,Manual,CC Test ZS,3,First step,First step - test data,First step - Expected result,Test,,,,
+2,,Manual,,3,"Second steps - *bold*
+
+_emphasis_
+
+Table
+||heading 1||heading 2||heading 3||
+|col A1|col A2|col A3|
+|col B1|col B2|col B3|","Second steps - Test Data
+
+*bold*
+
+_emphasis_
+
+Table
+||heading 1||heading 2||heading 3||
+|col A1|col A2|col A3|
+|col B1|col B2|col B3|","Second steps - Expected result
+
+*bold*
+
+_emphasis_
+
+Table
+||heading 1||heading 2||heading 3||
+|col A1|col A2|col A3|
+|col B1|col B2|col B3|",Test,,,,
